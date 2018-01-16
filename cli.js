@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 "use strict";
 const meow = require("meow");
-import randomWordWikipedia from ".";
+const randomWordWikipedia = require(".");
 
 const cli = meow(`
 	Usage
