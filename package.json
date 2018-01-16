@@ -1,7 +1,7 @@
 {
 	"name": "random-word-wikipedia",
 	"description": "Get random word from wikipedia random page",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"author": {
 		"name": "elzup",
 		"email": "guild0105@gmail.com",
