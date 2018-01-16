@@ -1,27 +1,16 @@
-import { parse } from "url";
 import "isomorphic-fetch";
 require("es6-promise").polyfill();
 
-export function getWord(url) {
-	const path = parse(url).path;
-	const wordPath = path.split("/")[2];
-	return decodeURI(wordPath);
-}
-
-export default async function main(input, opts) {
-	if (typeof input !== "string") {
-		throw new TypeError(`Expected a string, got ${typeof input}`);
+export default async function main(lang, opts) {
+	if (typeof lang !== "string") {
+		throw new TypeError(`Expected a string, got ${typeof lang}`);
 	}
 
 	opts = opts || {};
 
-	const randomUrl = `http://${input}.wikipedia.org/wiki/Special:Randompage`;
+	const url = `http://${lang}.wikipedia.org/w/api.php?format=json&action=query&list=random&rnnamespace=0&rnlimit=10`;
 
-	const res = await fetch(randomUrl);
-
-	if (res.status != 200) {
-		return false;
-	}
-	const keywrod = getWord(res.url);
-	return keywrod;
+	const res = await fetch(url);
+	const data = await res.json();
+	return data.query.random[0].title;
 }
