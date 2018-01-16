@@ -21,6 +21,11 @@ const cli = meow(`
 
 `);
 
-randomWordWikipedia(cli.input[0], cli.flags.n).then(res => {
-	console.log(res.join("\n"));
-});
+randomWordWikipedia(cli.input[0], cli.flags.n)
+	.then(res => {
+		console.log(res.join("\n"));
+	})
+	.catch(err => {
+		console.error("Error: err.message");
+		console.error("$ random-word-wikipedia --help");
+	});

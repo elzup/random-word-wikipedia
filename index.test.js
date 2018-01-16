@@ -21,6 +21,11 @@ test("CLI works num option", async t => {
 	t.is(stdout.split("\n").length, 7);
 });
 
+test("module throw num limit works", async t => {
+	const { stdout, stderr, code } = await execa.shell("./cli.js ja -n 11");
+	t.truthy(/Error/.test(stderr));
+});
+
 test("module works", async t => {
 	const res = await m();
 	t.true(Array.isArray(res));
