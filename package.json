@@ -1,7 +1,7 @@
 {
 	"name": "random-word-wikipedia",
 	"description": "Get random word from wikipedia random page",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"author": {
 		"name": "elzup",
 		"email": "guild0105@gmail.com",
@@ -24,13 +24,20 @@
 	"engines": {
 		"node": ">=8"
 	},
-	"files": ["bin/", "lib/", "src/"],
-	"keywords": ["", "cli", "cli-app"],
+	"files": [
+		"bin/",
+		"lib/",
+		"src/"
+	],
+	"keywords": [
+		"",
+		"cli",
+		"cli-app"
+	],
 	"license": "MIT",
 	"repository": "elzup/random-word-wikipedia",
 	"scripts": {
-		"build":
-			"cross-env NODE_ENV=production babel src --out-dir lib --source-maps && chmod +x lib/cli.js",
+		"build": "cross-env NODE_ENV=production babel src --out-dir lib --source-maps && chmod +x lib/cli.js",
 		"test": "npm run build && ava"
 	}
 }
