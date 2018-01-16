@@ -1,7 +1,7 @@
 import test from "ava";
 
 import execa from "execa";
-import m from "../lib/";
+const m = require("../lib/");
 
 test("CLI works", async t => {
 	const { stdout, code } = await execa.shell("./lib/cli.js");
