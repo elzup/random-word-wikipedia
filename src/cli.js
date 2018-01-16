@@ -8,15 +8,17 @@ const cli = meow(`
 	  $ random-word-wikipedia [lang]
 
 	Options
-	  --foo  Lorem ipsum [Default: false]
+	  -n 10 or less [Default: 1]
 
 	Examples
 	  $ random-word-wikipedia
-	  unicorns & rainbows
-	  $ random-word-wikipedia ja
-	  ponies & rainbows
+		YuruYuri
+
+	  $ random-word-wikipedia ja -n 10
+		TODO
+
 `);
 
-randomWordWikipedia(cli.input[0] || "en").then(res => {
+randomWordWikipedia(cli.input[0] || "en", cli.flags).then(res => {
 	console.log(res);
 });
