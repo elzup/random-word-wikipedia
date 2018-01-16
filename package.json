@@ -1,37 +1,44 @@
 {
-	"name": "random-word-wikipedia",
-	"description": "Get random word from wikipedia random page",
-	"version": "1.0.0",
-	"author": {
-		"name": "elzup",
-		"email": "guild0105@gmail.com",
-		"url": "elzup.com"
-	},
-	"bin": "cli.js",
-	"dependencies": {
-		"es6-promise": "^4.2.2",
-		"isomorphic-fetch": "^2.2.1",
-		"meow": "^3.7.0"
-	},
-	"devDependencies": {
-		"babel-cli": "^6.26.0",
-		"babel-preset-es2015": "^6.24.1",
-		"babel-preset-jsdoc-to-assert": "^4.0.0",
-		"babel-preset-power-assert": "^1.0.0",
-		"babel-register": "^6.26.0",
-		"cross-env": "^5.1.3",
-		"ava": "^0.20.0"
-	},
-	"engines": {
-		"node": ">=6"
-	},
-	"keywords": ["", "cli", "cli-app"],
-	"license": "MIT",
-	"files": ["bin/", "lib/", "src/"],
-	"repository": "elzup/random-word-wikipedia",
-	"scripts": {
-		"build":
-			"cross-env NODE_ENV=production babel src --out-dir lib --source-maps",
-		"test": "ava"
-	}
+  "name": "random-word-wikipedia",
+  "description": "Get random word from wikipedia random page",
+  "version": "1.0.0",
+  "author": {
+    "name": "elzup",
+    "email": "guild0105@gmail.com",
+    "url": "elzup.com"
+  },
+  "bin": "cli.js",
+  "dependencies": {
+    "es6-promise": "^4.2.2",
+    "isomorphic-fetch": "^2.2.1",
+    "meow": "^3.7.0"
+  },
+  "devDependencies": {
+    "ava": "^0.20.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-jsdoc-to-assert": "^4.0.0",
+    "babel-preset-power-assert": "^1.0.0",
+    "babel-register": "^6.26.0",
+    "cross-env": "^5.1.3"
+  },
+  "engines": {
+    "node": ">=6"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "src/"
+  ],
+  "keywords": [
+    "",
+    "cli",
+    "cli-app"
+  ],
+  "license": "MIT",
+  "repository": "elzup/random-word-wikipedia",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production babel src --out-dir lib --source-maps",
+    "test": "ava"
+  }
 }
