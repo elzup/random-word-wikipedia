@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 "use strict";
 const meow = require("meow");
-const randomWordWikipedia = require(".");
+import randomWordWikipedia from ".";
 
 const cli = meow(`
 	Usage
-	  $ random-word-wikipedia [input]
+	  $ random-word-wikipedia [lang]
 
 	Options
 	  --foo  Lorem ipsum [Default: false]
@@ -13,10 +13,10 @@ const cli = meow(`
 	Examples
 	  $ random-word-wikipedia
 	  unicorns & rainbows
-	  $ random-word-wikipedia ponies
+	  $ random-word-wikipedia ja
 	  ponies & rainbows
 `);
 
-randomWordWikipedia(cli.input[0] || "unicorns").then(res => {
+randomWordWikipedia(cli.input[0] || "en").then(res => {
 	console.log(res);
 });

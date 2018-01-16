@@ -1,23 +1,21 @@
-"use strict";
-
+import { parse } from "url";
+import "isomorphic-fetch";
 require("es6-promise").polyfill();
-require("isomorphic-fetch");
-const { parse } = require("url");
 
-function getWord(url) {
+export function getWord(url) {
 	const path = parse(url).path;
 	const wordPath = path.split("/")[2];
 	return decodeURI(wordPath);
 }
 
-module.exports = async (input, opts) => {
+export default async function main(input, opts) {
 	if (typeof input !== "string") {
 		throw new TypeError(`Expected a string, got ${typeof input}`);
 	}
 
 	opts = opts || {};
 
-	const randomUrl = "http://ja.wikipedia.org/wiki/Special:Randompage";
+	const randomUrl = `http://${input}.wikipedia.org/wiki/Special:Randompage`;
 
 	const res = await fetch(randomUrl);
 
@@ -26,4 +24,4 @@ module.exports = async (input, opts) => {
 	}
 	const keywrod = getWord(res.url);
 	return keywrod;
-};
+}
