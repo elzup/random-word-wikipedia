@@ -1,24 +1,29 @@
 import test from "ava";
 
 import execa from "execa";
-const m = require("../lib/");
+const m = require(".");
 
 test("CLI works", async t => {
-	const { stdout, code } = await execa.shell("./lib/cli.js");
+	const { stdout, code } = await execa.shell("./cli.js");
 	t.is(code, 0);
 	t.is(stdout.split("\n").length, 1);
 });
 
 test("CLI works another lang", async t => {
-	const { stdout, code } = await execa.shell("./lib/cli.js ja");
+	const { stdout, code } = await execa.shell("./cli.js ja");
 	t.is(code, 0);
 	t.is(stdout.split("\n").length, 1);
 });
 
 test("CLI works num option", async t => {
-	const { stdout, code } = await execa.shell("./lib/cli.js ja -n 7");
+	const { stdout, code } = await execa.shell("./cli.js ja -n 7");
 	t.is(code, 0);
 	t.is(stdout.split("\n").length, 7);
+});
+
+test("module throw num limit works", async t => {
+	const { stdout, stderr, code } = await execa.shell("./cli.js ja -n 11");
+	t.truthy(/Error/.test(stderr));
 });
 
 test("module works", async t => {

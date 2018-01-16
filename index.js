@@ -1,7 +1,7 @@
-import "isomorphic-fetch";
+require("isomorphic-fetch");
 require("es6-promise").polyfill();
 
-export default async function main(lang, n) {
+module.exports = async (lang, n) => {
 	lang = lang || "en";
 	if (typeof lang !== "string") {
 		throw new TypeError(`Expected a string, got ${typeof lang}`);
@@ -20,4 +20,4 @@ export default async function main(lang, n) {
 	const words = data.query.random;
 	words.length = n;
 	return words.map(v => v.title);
-}
+};
