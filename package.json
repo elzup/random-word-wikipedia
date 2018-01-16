@@ -1,13 +1,13 @@
 {
 	"name": "random-word-wikipedia",
 	"description": "Get random word from wikipedia random page",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"author": {
 		"name": "elzup",
 		"email": "guild0105@gmail.com",
 		"url": "elzup.com"
 	},
-	"bin": "cli.js",
+	"bin": "lib/cli.js",
 	"dependencies": {
 		"es6-promise": "^4.2.2",
 		"isomorphic-fetch": "^2.2.1",
