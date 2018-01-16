@@ -15,8 +15,7 @@
 		"meow": "^3.7.0"
 	},
 	"devDependencies": {
-		"ava": "^0.20.0",
-		"xo": "^0.18.2"
+		"ava": "^0.20.0"
 	},
 	"engines": {
 		"node": ">=6"
@@ -26,6 +25,6 @@
 	"license": "MIT",
 	"repository": "elzup/random-word-wikipedia",
 	"scripts": {
-		"test": "xo && ava"
+		"test": "ava"
 	}
 }

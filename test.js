@@ -1,11 +1,19 @@
-import test from 'ava';
-import m from '.';
+import test from "ava";
+import m from ".";
+import execa from "execa";
 
-test('title', t => {
-	const err = t.throws(() => {
-		m(123);
-	}, TypeError);
-	t.is(err.message, 'Expected a string, got number');
+test("CLI work", async t => {
+	let ret;
 
-	t.is(m('unicorns'), 'unicorns & rainbows');
+	try {
+		ret = await execa("./cli.js");
+	} catch (err) {
+		ret = err.stderr;
+	}
+
+	t.true(/./.test(ret));
+});
+
+test("module", t => {
+	t.true(/./.test(m("unicorns")));
 });
