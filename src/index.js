@@ -1,14 +1,15 @@
 import "isomorphic-fetch";
 require("es6-promise").polyfill();
 
-export default async function main(lang, opts) {
+export default async function main(lang, n) {
+	lang = lang || "en";
 	if (typeof lang !== "string") {
 		throw new TypeError(`Expected a string, got ${typeof lang}`);
 	}
 
-	opts = Object.assign({ n: 1 }, opts);
-	if (opts.n <= 0 || opts.n > 10) {
-		throw new TypeError(`Expected a -n (1 - 10), got ${opts.n}`);
+	n = n || 1;
+	if (n <= 0 || n > 10) {
+		throw new TypeError(`Expected a -n (1 - 10), got ${n}`);
 	}
 
 	// rnlimit: API limit 10 or less
@@ -17,6 +18,6 @@ export default async function main(lang, opts) {
 	const res = await fetch(url);
 	const data = await res.json();
 	const words = data.query.random;
-	words.length = opts.n;
-	return rords.map(v => v.title);
+	words.length = n;
+	return words.map(v => v.title);
 }

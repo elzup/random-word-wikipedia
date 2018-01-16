@@ -14,11 +14,13 @@ const cli = meow(`
 	  $ random-word-wikipedia
 		YuruYuri
 
-	  $ random-word-wikipedia ja -n 10
-		TODO
+	  $ random-word-wikipedia ja -n 3
+		バダインジャラン砂漠
+		内野 (印西市)
+		PAC-MAN 256
 
 `);
 
-randomWordWikipedia(cli.input[0] || "en", cli.flags).then(res => {
-	console.log(res);
+randomWordWikipedia(cli.input[0], cli.flags.n).then(res => {
+	console.log(res.join("\n"));
 });
