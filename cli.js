@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-'use strict';
-const meow = require('meow');
-const randomWordWikipedia = require('.');
+"use strict";
+const meow = require("meow");
+const randomWordWikipedia = require(".");
 
 const cli = meow(`
 	Usage
@@ -17,4 +17,6 @@ const cli = meow(`
 	  ponies & rainbows
 `);
 
-console.log(randomWordWikipedia(cli.input[0] || 'unicorns'));
+randomWordWikipedia(cli.input[0] || "unicorns").then(res => {
+	console.log(res);
+});

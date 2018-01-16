@@ -1,28 +1,31 @@
 {
-  "name": "random-word-wikipedia",
-  "version": "0.0.0",
-  "description": "Get random word from wikipedia random page",
-  "license": "MIT",
-  "repository": "elzup/random-word-wikipedia",
-  "author": {
-    "name": "elzup",
-    "email": "guild0105@gmail.com",
-    "url": "elzup.com"
-  },
-  "bin": "cli.js",
-  "engines": {
-    "node": ">=6"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "files": ["index.js", "cli.js"],
-  "keywords": ["cli-app", "cli", ""],
-  "dependencies": {
-    "meow": "^3.7.0"
-  },
-  "devDependencies": {
-    "ava": "^0.20.0",
-    "xo": "^0.18.2"
-  }
+	"name": "random-word-wikipedia",
+	"description": "Get random word from wikipedia random page",
+	"version": "0.1.0",
+	"author": {
+		"name": "elzup",
+		"email": "guild0105@gmail.com",
+		"url": "elzup.com"
+	},
+	"bin": "cli.js",
+	"dependencies": {
+		"axios": "^0.17.1",
+		"es6-promise": "^4.2.2",
+		"isomorphic-fetch": "^2.2.1",
+		"meow": "^3.7.0"
+	},
+	"devDependencies": {
+		"ava": "^0.20.0",
+		"xo": "^0.18.2"
+	},
+	"engines": {
+		"node": ">=6"
+	},
+	"files": ["index.js", "cli.js"],
+	"keywords": ["", "cli", "cli-app"],
+	"license": "MIT",
+	"repository": "elzup/random-word-wikipedia",
+	"scripts": {
+		"test": "xo && ava"
+	}
 }
