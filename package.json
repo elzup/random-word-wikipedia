@@ -1,7 +1,7 @@
 {
 	"name": "random-word-wikipedia",
 	"description": "Get random word from wikipedia random page",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"author": {
 		"name": "elzup",
 		"email": "guild0105@gmail.com",
@@ -19,8 +19,18 @@
 	"engines": {
 		"node": ">=6"
 	},
-	"files": ["cli.js", "index.js"],
-	"keywords": ["", "cli", "cli-app", "wikipedia", "random", "faker"],
+	"files": [
+		"cli.js",
+		"index.js"
+	],
+	"keywords": [
+		"",
+		"cli",
+		"cli-app",
+		"wikipedia",
+		"random",
+		"faker"
+	],
 	"license": "MIT",
 	"repository": "elzup/random-word-wikipedia",
 	"scripts": {
