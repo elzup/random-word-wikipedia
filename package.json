@@ -9,12 +9,12 @@
 	},
 	"bin": "cli.js",
 	"dependencies": {
-		"es6-promise": "^4.2.2",
-		"isomorphic-fetch": "^2.2.1",
-		"meow": "^3.7.0"
+		"es6-promise": "4.2.8",
+		"isomorphic-fetch": "2.2.1",
+		"meow": "3.7.0"
 	},
 	"devDependencies": {
-		"ava": "^0.20.0"
+		"ava": "0.20.0"
 	},
 	"engines": {
 		"node": ">=6"
