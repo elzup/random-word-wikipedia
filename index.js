@@ -1,14 +1,13 @@
 require("isomorphic-fetch");
 require("es6-promise").polyfill();
 
-module.exports = (lang, n) => {
+module.exports = (lang, n = 1) => {
 	return new Promise(function(resolve, reject) {
 		lang = lang || "en";
 		if (typeof lang !== "string") {
 			throw new TypeError(`Expected a string, got ${typeof lang}`);
 		}
 
-		n = n || 1;
 		if (n <= 0 || n > 10) {
 			throw new TypeError(`Expected a -n (1 - 10), got ${n}`);
 		}
@@ -20,8 +19,7 @@ module.exports = (lang, n) => {
 			.then(res => res.json())
 			.then(data => {
 				const words = data.query.random;
-				words.length = n;
-				resolve(words.map(v => v.title));
+				resolve(words.filter((v, k) => k < n).map(v => v.title));
 			});
 	});
 };

@@ -21,7 +21,7 @@ const cli = meow(`
 
 `);
 
-randomWordWikipedia(cli.input[0], cli.flags.n)
+randomWordWikipedia(cli.input[0], cli.flags.n || 1)
 	.then(res => {
 		console.log(res.join("\n"));
 	})
