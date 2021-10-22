@@ -1,7 +1,6 @@
-# random-word-wikipedia [![Build Status](https://travis-ci.org/elzup/random-word-wikipedia.svg?branch=master)](https://travis-ci.org/elzup/random-word-wikipedia)
+# random-word-wikipedia [![Node.js CI](https://github.com/elzup/random-word-wikipedia/actions/workflows/node.js.yml/badge.svg)](https://github.com/elzup/random-word-wikipedia/actions/workflows/node.js.yml)
 
 > Get random word from wikipedia random page
-
 
 ## Install
 
@@ -9,19 +8,17 @@
 $ npm install random-word-wikipedia
 ```
 
-
 ## Usage
 
 ```js
-const randomWordWikipedia = require('random-word-wikipedia');
+const randomWordWikipedia = require("random-word-wikipedia");
 
 randomWordWikipedia().then(console.log);
 //=> [ 'Saxifraga spathularis' ]
 
-randomWordWikipedia('ja', 2).then(console.log);
+randomWordWikipedia("ja", 2).then(console.log);
 //=> [ 'ジョン・イサーク・ブリケ', '月は闇夜に隠るが如く' ]
 ```
-
 
 ## API
 
@@ -68,7 +65,6 @@ $ random-word-wikipedia --help
 		内野 (印西市)
 		PAC-MAN 256
 ```
-
 
 ## License
 
