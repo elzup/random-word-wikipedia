@@ -17,7 +17,7 @@
 		"ava": "2.4.0"
 	},
 	"engines": {
-		"node": ">=10"
+		"node": ">=12"
 	},
 	"files": [
 		"cli.js",
