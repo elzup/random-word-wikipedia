@@ -5,7 +5,7 @@ const randomWordWikipedia = require(".");
 
 const cli = meow(`
 	Usage
-	  $ random-word-wikipedia [lang]
+	  $ random-word-wikipedia [lang=en]
 
 	Options
 	  -n 10 or less [Default: 1]
@@ -22,10 +22,10 @@ const cli = meow(`
 `);
 
 randomWordWikipedia(cli.input[0], cli.flags.n || 1)
-	.then(res => {
+	.then((res) => {
 		console.log(res.join("\n"));
 	})
-	.catch(err => {
+	.catch((err) => {
 		console.error("Error: err.message");
 		console.error("$ random-word-wikipedia --help");
 	});

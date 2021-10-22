@@ -10,6 +10,7 @@
 	"bin": "cli.js",
 	"dependencies": {
 		"es6-promise": "4.2.8",
+		"fetch-mock": "^9.11.0",
 		"isomorphic-fetch": "2.2.1",
 		"meow": "5.0.0"
 	},
@@ -34,6 +35,7 @@
 	"license": "MIT",
 	"repository": "elzup/random-word-wikipedia",
 	"scripts": {
-		"test": "ava"
+		"test": "ava",
+		"cli": "node cli.js"
 	}
 }
