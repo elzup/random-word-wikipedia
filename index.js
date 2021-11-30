@@ -1,7 +1,8 @@
-require("isomorphic-fetch");
-require("es6-promise").polyfill();
+import "isomorphic-fetch";
+import promise from "es6-promise";
+promise.polyfill();
 
-module.exports = (lang, n = 1) => {
+const randomWordWikipedia = (lang, n = 1) => {
 	return new Promise(function (resolve, reject) {
 		lang = lang || "en";
 		if (typeof lang !== "string") {
@@ -23,3 +24,5 @@ module.exports = (lang, n = 1) => {
 			});
 	});
 };
+
+export default randomWordWikipedia;
