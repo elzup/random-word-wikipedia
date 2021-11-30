@@ -3,7 +3,8 @@
 import meow from "meow";
 import randomWordWikipedia from "./index.js";
 
-const cli = meow(`
+const cli = meow(
+	`
 	Usage
 	  $ random-word-wikipedia [lang=en]
 
@@ -19,7 +20,16 @@ const cli = meow(`
 		内野 (印西市)
 		PAC-MAN 256
 
-`);
+`,
+	{
+		importMeta: import.meta,
+		flags: {
+			n: {
+				type: "number"
+			}
+		}
+	}
+);
 
 randomWordWikipedia(cli.input[0], cli.flags.n || 1)
 	.then((res) => {
