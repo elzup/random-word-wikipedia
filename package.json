@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"es6-promise": "4.2.8",
-		"fetch-mock": "9.11.0",
+		"fetch-mock": "11.1.5",
 		"isomorphic-fetch": "3.0.0",
 		"meow": "11.0.0"
 	},
