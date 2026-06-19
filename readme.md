@@ -2,6 +2,8 @@
 
 > Get random word from wikipedia random page
 
+ESM-only, zero dependencies. Requires Node.js >= 22.
+
 ## Install
 
 ```
@@ -11,7 +13,7 @@ $ npm install random-word-wikipedia
 ## Usage
 
 ```js
-const randomWordWikipedia = require("random-word-wikipedia");
+import randomWordWikipedia from "random-word-wikipedia";
 
 randomWordWikipedia().then(console.log);
 //=> [ 'Saxifraga spathularis' ]
@@ -49,21 +51,15 @@ $ npm install --global random-word-wikipedia
 ```
 $ random-word-wikipedia --help
 
-	Usage
-	  $ random-word-wikipedia [lang]
+  Usage
+    $ random-word-wikipedia [lang=en]
 
-	Options
-	  -n 10 or less [Default: 1]
+  Options
+    -n  Number of words, 10 or less [Default: 1]
 
-	Examples
-	  $ random-word-wikipedia
-		YuruYuri
-
-	  $ random-word-wikipedia ja -n 4
-		バダインジャラン砂漠
-		ゆるゆり
-		内野 (印西市)
-		PAC-MAN 256
+  Examples
+    $ random-word-wikipedia
+    $ random-word-wikipedia ja -n 3
 ```
 
 ## License

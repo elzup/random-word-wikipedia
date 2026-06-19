@@ -1,0 +1,28 @@
+# Publishes to npm when a GitHub Release is published.
+# Requires an `NPM_TOKEN` repository secret (npm automation token).
+# `id-token: write` enables npm provenance (--provenance).
+
+name: Publish
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+          registry-url: "https://registry.npmjs.org"
+      - run: node --test
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

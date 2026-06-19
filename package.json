@@ -11,18 +11,8 @@
 	"bin": {
 		"random-word-wikipedia": "./cli.js"
 	},
-	"dependencies": {
-		"es6-promise": "4.2.8",
-		"fetch-mock": "9.11.0",
-		"isomorphic-fetch": "3.0.0",
-		"meow": "11.0.0"
-	},
-	"devDependencies": {
-		"ava": "5.3.1",
-		"execa": "7.2.0"
-	},
 	"engines": {
-		"node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+		"node": ">=22"
 	},
 	"files": [
 		"cli.js",
@@ -38,7 +28,8 @@
 	"license": "MIT",
 	"repository": "elzup/random-word-wikipedia",
 	"scripts": {
-		"test": "ava",
-		"cli": "node cli.js"
+		"test": "node --test",
+		"cli": "node cli.js",
+		"prepublishOnly": "node --test"
 	}
 }
