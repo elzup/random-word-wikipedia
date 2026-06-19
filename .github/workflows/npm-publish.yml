@@ -1,12 +1,14 @@
-# Publishes to npm on a pushed v* tag.
-# Auth: npm Trusted Publishing (OIDC) — no token. Provenance is automatic.
-# Requires a Trusted Publisher on npmjs.com matching exactly:
-#   Owner: elzup
-#   Repository: random-word-wikipedia
-#   Workflow filename: npm-publish.yml
-#   Environment: (empty)
-# Node 24 ships npm >= 11.5.1 (OIDC requirement). No `npm ci` — zero deps,
-# no lockfile.
+# Publishes to npm on a pushed v* tag via Trusted Publishing (OIDC) — no token.
+#
+# setup-node's registry-url writes an .npmrc with a placeholder auth token
+# (NODE_AUTH_TOKEN=XXXXX-...), which makes npm use (broken) token auth and
+# skip the OIDC handshake -> E404. We keep setup-node's registry config but
+# strip the _authToken/always-auth lines so npm has a registry + NO token,
+# which is the condition that triggers the OIDC exchange.
+#
+# Requires a Trusted Publisher on npmjs.com: owner=elzup,
+# repo=random-word-wikipedia, workflow=npm-publish.yml, no environment.
+# Node 24 ships npm >= 11.5.1 (OIDC requirement).
 
 name: Publish
 
@@ -29,5 +31,10 @@ jobs:
           node-version: "24"
           registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
+      - name: Strip placeholder token so OIDC engages
+        run: |
+          sed -i '/:_authToken=/d; /always-auth/d' "$NPM_CONFIG_USERCONFIG"
+          echo "--- .npmrc after strip ---"
+          cat "$NPM_CONFIG_USERCONFIG"
       - run: npm test
       - run: npm publish
