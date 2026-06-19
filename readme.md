@@ -5,8 +5,8 @@
 
 > Get a random word (article title) from Wikipedia's random page.
 
-- 🪶 **Zero dependencies** — uses the platform `fetch`, nothing else
-- 📦 **ESM-only** and typed for modern Node.js (`>= 22`)
+- 🪶 **Zero runtime dependencies** — uses the platform `fetch`, nothing else
+- 📦 **ESM + CommonJS** with bundled **TypeScript types**, for Node.js `>= 22`
 - 🌍 **Any language** — pass a Wikipedia language code (`en`, `ja`, …)
 
 ## Install
@@ -25,6 +25,14 @@ await randomWordWikipedia();
 
 await randomWordWikipedia("ja", 2);
 //=> ['ジョン・イサーク・ブリケ', '月は闇夜に隠るが如く']
+```
+
+CommonJS (note the `.default`):
+
+```js
+const randomWordWikipedia = require("random-word-wikipedia").default;
+
+randomWordWikipedia().then(console.log);
 ```
 
 ## API

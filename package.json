@@ -1,22 +1,33 @@
 {
 	"name": "random-word-wikipedia",
 	"description": "Get random word from wikipedia random page",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"author": {
 		"name": "elzup",
 		"email": "guild0105@gmail.com",
 		"url": "https://anozon.me"
 	},
 	"type": "module",
+	"main": "lib/cjs/index.js",
+	"module": "lib/esm/index.js",
+	"types": "lib/types/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./lib/types/index.d.ts",
+			"import": "./lib/esm/index.js",
+			"require": "./lib/cjs/index.js"
+		}
+	},
 	"bin": {
 		"random-word-wikipedia": "./cli.js"
 	},
+	"sideEffects": false,
 	"engines": {
 		"node": ">=22"
 	},
 	"files": [
-		"cli.js",
-		"index.js"
+		"lib/",
+		"cli.js"
 	],
 	"keywords": [
 		"cli",
@@ -28,8 +39,19 @@
 	"license": "MIT",
 	"repository": "elzup/random-word-wikipedia",
 	"scripts": {
+		"clean": "rimraf lib",
+		"build": "npm run clean && npm run build:cjs && npm run build:esm && npm run build:types",
+		"build:cjs": "tsc --module commonjs --outDir lib/cjs && echo '{\"type\":\"commonjs\"}' > lib/cjs/package.json",
+		"build:esm": "tsc --module esnext --outDir lib/esm",
+		"build:types": "tsc --declaration --emitDeclarationOnly --outDir lib/types",
+		"pretest": "npm run build",
 		"test": "node --test",
 		"cli": "node cli.js",
-		"prepublishOnly": "node --test"
+		"prepublishOnly": "npm test"
+	},
+	"devDependencies": {
+		"@types/node": "^24.0.0",
+		"rimraf": "^6.0.0",
+		"typescript": "^5.6.0"
 	}
 }

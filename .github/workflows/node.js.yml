@@ -1,4 +1,5 @@
-# Runs the test suite across the maintained LTS Node.js lines.
+# Builds (tsc -> lib/{cjs,esm,types}) and runs the test suite across
+# the maintained LTS Node.js lines.
 # https://nodejs.org/en/about/previous-releases
 
 name: Node.js CI
@@ -23,4 +24,5 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - run: node --test
+      - run: npm install
+      - run: npm test

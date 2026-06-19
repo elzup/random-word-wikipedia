@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 
-import randomWordWikipedia from "./index.js";
+import randomWordWikipedia from "./lib/esm/index.js";
 
 const read = (name) =>
 	JSON.parse(readFileSync(new URL(`./mocks/${name}`, import.meta.url)));

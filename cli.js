@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { parseArgs } from "node:util";
-import randomWordWikipedia from "./index.js";
+import randomWordWikipedia from "./lib/esm/index.js";
 
 const help = `
   Usage
