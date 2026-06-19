@@ -1,13 +1,18 @@
-# random-word-wikipedia [![Node.js CI](https://github.com/elzup/random-word-wikipedia/actions/workflows/node.js.yml/badge.svg)](https://github.com/elzup/random-word-wikipedia/actions/workflows/node.js.yml)
+# random-word-wikipedia
 
-> Get random word from wikipedia random page
+[![npm](https://img.shields.io/npm/v/random-word-wikipedia.svg)](https://www.npmjs.com/package/random-word-wikipedia)
+[![Node.js CI](https://github.com/elzup/random-word-wikipedia/actions/workflows/node.js.yml/badge.svg)](https://github.com/elzup/random-word-wikipedia/actions/workflows/node.js.yml)
 
-ESM-only, zero dependencies. Requires Node.js >= 22.
+> Get a random word (article title) from Wikipedia's random page.
+
+- 🪶 **Zero dependencies** — uses the platform `fetch`, nothing else
+- 📦 **ESM-only** and typed for modern Node.js (`>= 22`)
+- 🌍 **Any language** — pass a Wikipedia language code (`en`, `ja`, …)
 
 ## Install
 
-```
-$ npm install random-word-wikipedia
+```sh
+npm install random-word-wikipedia
 ```
 
 ## Usage
@@ -15,40 +20,41 @@ $ npm install random-word-wikipedia
 ```js
 import randomWordWikipedia from "random-word-wikipedia";
 
-randomWordWikipedia().then(console.log);
-//=> [ 'Saxifraga spathularis' ]
+await randomWordWikipedia();
+//=> ['Saxifraga spathularis']
 
-randomWordWikipedia("ja", 2).then(console.log);
-//=> [ 'ジョン・イサーク・ブリケ', '月は闇夜に隠るが如く' ]
+await randomWordWikipedia("ja", 2);
+//=> ['ジョン・イサーク・ブリケ', '月は闇夜に隠るが如く']
 ```
 
 ## API
 
-### randomWordWikipedia([lang, n])
+### `randomWordWikipedia(lang?, n?)`
 
-#### options
+Returns `Promise<string[]>` — an array of random article titles.
 
-##### lang
+| Param  | Type     | Default | Description                                  |
+| ------ | -------- | ------- | -------------------------------------------- |
+| `lang` | `string` | `"en"`  | Wikipedia language code (e.g. `en`, `ja`).   |
+| `n`    | `number` | `1`     | How many words to return. Must be `1`–`10`.  |
 
-Type: `string`<br>
-Default: `en`
-
-wikipedia lang string.
-
-##### n
-
-Type: `number` 1 - 10<br>
-Default: 1
-
-number of word.
+Throws a `TypeError` if `lang` is not a string or `n` is outside `1`–`10`.
 
 ## CLI
 
-```
-$ npm install --global random-word-wikipedia
+```sh
+npm install --global random-word-wikipedia
 ```
 
-```
+```console
+$ random-word-wikipedia
+Mapania caudata
+
+$ random-word-wikipedia ja -n 3
+バダインジャラン砂漠
+内野 (印西市)
+PAC-MAN 256
+
 $ random-word-wikipedia --help
 
   Usage
