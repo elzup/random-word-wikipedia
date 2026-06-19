@@ -2,8 +2,10 @@
 # Auth via npm Trusted Publishing (OIDC) — no token needed.
 # Requires: a Trusted Publisher configured on npmjs.com for this repo +
 # this workflow file, and `id-token: write` below. Provenance is automatic.
-# Needs actions/setup-node@v6 (v4 writes an .npmrc that disables OIDC) and
-# npm >= 11.5.1 / Node >= 22.14.
+#
+# Do NOT set `registry-url` on setup-node: it writes an .npmrc with a
+# placeholder NODE_AUTH_TOKEN, which makes npm use (broken) token auth and
+# skip the OIDC exchange. Node 24 ships npm >= 11.5.1 (OIDC requirement).
 
 name: Publish
 
@@ -23,8 +25,5 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24.x
-          registry-url: "https://registry.npmjs.org"
-          package-manager-cache: false
-      - run: npm install -g npm@latest # ensure npm >= 11.5.1 for OIDC
       - run: node --test
       - run: npm publish --provenance --access public
