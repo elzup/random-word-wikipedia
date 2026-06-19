@@ -1,11 +1,7 @@
 # Publishes to npm when a GitHub Release is published.
-# Auth via npm Trusted Publishing (OIDC) — no token needed.
-# Requires: a Trusted Publisher configured on npmjs.com for this repo +
-# this workflow file, and `id-token: write` below. Provenance is automatic.
-#
-# Do NOT set `registry-url` on setup-node: it writes an .npmrc with a
-# placeholder NODE_AUTH_TOKEN, which makes npm use (broken) token auth and
-# skip the OIDC exchange. Node 24 ships npm >= 11.5.1 (OIDC requirement).
+# Auth: NPM_TOKEN secret (must be a classic "Automation" token so it
+# bypasses 2FA in CI). `id-token: write` is only for provenance signing.
+# Mirrors the working setup in elzup/hash-omikuji.
 
 name: Publish
 
@@ -21,9 +17,12 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 24.x
+          registry-url: "https://registry.npmjs.org"
       - run: node --test
       - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
