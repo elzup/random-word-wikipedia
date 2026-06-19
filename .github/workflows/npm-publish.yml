@@ -1,6 +1,7 @@
 # Publishes to npm when a GitHub Release is published.
-# Requires an `NPM_TOKEN` repository secret (npm automation token).
-# `id-token: write` enables npm provenance (--provenance).
+# Auth via npm Trusted Publishing (OIDC) — no token needed.
+# Requires: a Trusted Publisher configured on npmjs.com for this repo +
+# this workflow file, and `id-token: write` below. Provenance is automatic.
 
 name: Publish
 
@@ -22,7 +23,6 @@ jobs:
         with:
           node-version: 24.x
           registry-url: "https://registry.npmjs.org"
+      - run: npm install -g npm@latest # OIDC trusted publishing needs npm >= 11.5.1
       - run: node --test
       - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
