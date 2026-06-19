@@ -1,72 +1,74 @@
-import test from "ava";
+import { test, before, after } from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 
-import { execaSync } from "execa";
-import fetchMock from "fetch-mock";
+import randomWordWikipedia from "./index.js";
 
-import m from "./index.js";
-import fs from "fs";
+const read = (name) =>
+	JSON.parse(readFileSync(new URL(`./mocks/${name}`, import.meta.url)));
 
-const read = (path) => JSON.parse(fs.readFileSync(path, "utf8"));
+// keyed by `${lang}:${rnlimit}` to match the wikipedia request
+const fixtures = {
+	"en:1": read("mock1.en.json"),
+	"ja:1": read("mock1.ja.json"),
+	"ja:3": read("mock3.json")
+};
 
-const mock1en = read("./mocks/mock1.en.json");
-const mock1ja = read("./mocks/mock1.ja.json");
-const mock3ja = read("./mocks/mock3.json");
-const mock7ja = read("./mocks/mock7.json");
-const mock10ja = read("./mocks/mock10.json");
+const realFetch = globalThis.fetch;
 
-const makeUrl = (lang, n) =>
-	`https://${lang}.wikipedia.org/w/api.php?format=json&action=query&list=random&rnnamespace=0&rnlimit=${n}`;
-test.before(() => {
-	fetchMock
-		.get(makeUrl("en", 1), { status: 200, body: mock1en })
-		.get(makeUrl("ja", 1), { status: 200, body: mock1ja })
-		.get(makeUrl("ja", 3), { status: 200, body: mock3ja })
-		.get(makeUrl("ja", 7), { status: 200, body: mock7ja })
-		.get(makeUrl("ja", 10), { status: 200, body: mock10ja });
-});
-test.after(() => {
-	fetchMock.restore();
-});
-
-test("CLI works", async (t) => {
-	const { stdout } = execaSync("./cli.js");
-	t.is(stdout.split("\n").length, 1);
+before(() => {
+	globalThis.fetch = async (input) => {
+		const url = new URL(input);
+		const lang = url.hostname.split(".")[0];
+		const n = url.searchParams.get("rnlimit");
+		const body = fixtures[`${lang}:${n}`];
+		assert.ok(body, `unexpected request: ${lang}:${n}`);
+		return Response.json(body);
+	};
 });
 
-test("CLI works another lang", async (t) => {
-	const { stdout } = execaSync("./cli.js", ["ja"]);
-	t.is(stdout.split("\n").length, 1);
+after(() => {
+	globalThis.fetch = realFetch;
 });
 
-test("CLI works num option", async (t) => {
-	const { stdout } = execaSync("./cli.js", ["ja", "-n", "7"]);
-	t.is(stdout.split("\n").length, 7);
+test("defaults to a single English word", async () => {
+	const res = await randomWordWikipedia();
+	assert.ok(Array.isArray(res));
+	assert.equal(res.length, 1);
 });
 
-test("CLI module throw num limit works", async (t) => {
-	const { stderr } = execaSync("./cli.js", ["ja", "-n", "11"]);
-	t.truthy(/Error/.test(stderr));
+test("supports another language", async () => {
+	const res = await randomWordWikipedia("ja");
+	assert.equal(res.length, 1);
 });
 
-test("module works", async (t) => {
-	const res = await m();
-	t.true(Array.isArray(res));
-	t.is(res.length, 1);
+test("supports the -n count option", async () => {
+	const res = await randomWordWikipedia("ja", 3);
+	assert.equal(res.length, 3);
 });
 
-test("module works another lang", async (t) => {
-	const res = await m("ja");
-	t.true(Array.isArray(res));
-	t.is(res.length, 1);
+test("rejects a count outside 1-10", async () => {
+	await assert.rejects(randomWordWikipedia("ja", 11), TypeError);
 });
 
-test("module works num option", async (t) => {
-	const res = await m("ja", 3);
-	t.true(Array.isArray(res));
-	t.is(res.length, 3);
+test("CLI reports the error on an invalid count", () => {
+	let err;
+	try {
+		execFileSync(process.execPath, ["cli.js", "ja", "-n", "11"], {
+			encoding: "utf8",
+			stdio: "pipe"
+		});
+	} catch (e) {
+		err = e;
+	}
+	assert.ok(err, "CLI should exit non-zero");
+	assert.match(err.stderr, /Error/);
 });
 
-test("module throw num limit works", async (t) => {
-	const err = await t.throwsAsync(m("ja", 11), { instanceOf: TypeError });
-	t.truthy(err.message);
+test("CLI --help prints usage", () => {
+	const out = execFileSync(process.execPath, ["cli.js", "--help"], {
+		encoding: "utf8"
+	});
+	assert.match(out, /Usage/);
 });

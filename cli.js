@@ -1,41 +1,42 @@
 #!/usr/bin/env node
 
-import meow from "meow";
+import { parseArgs } from "node:util";
 import randomWordWikipedia from "./index.js";
 
-const cli = meow(
-	`
-	Usage
-	  $ random-word-wikipedia [lang=en]
+const help = `
+  Usage
+    $ random-word-wikipedia [lang=en]
 
-	Options
-	  -n 10 or less [Default: 1]
+  Options
+    -n  Number of words, 10 or less [Default: 1]
 
-	Examples
-	  $ random-word-wikipedia
-		YuruYuri
+  Examples
+    $ random-word-wikipedia
+    $ random-word-wikipedia ja -n 3
+`;
 
-	  $ random-word-wikipedia ja -n 3
-		バダインジャラン砂漠
-		内野 (印西市)
-		PAC-MAN 256
-
-`,
-	{
-		importMeta: import.meta,
-		flags: {
-			n: {
-				type: "number"
-			}
-		}
+const { values, positionals } = parseArgs({
+	allowPositionals: true,
+	options: {
+		n: { type: "string", short: "n" },
+		help: { type: "boolean", short: "h" }
 	}
-);
+});
 
-randomWordWikipedia(cli.input[0], cli.flags.n || 1)
+if (values.help) {
+	console.log(help);
+	process.exit(0);
+}
+
+const lang = positionals[0];
+const n = values.n === undefined ? 1 : Number(values.n);
+
+randomWordWikipedia(lang, n)
 	.then((res) => {
 		console.log(res.join("\n"));
 	})
 	.catch((err) => {
-		console.error("Error: err.message");
+		console.error(`Error: ${err.message}`);
 		console.error("$ random-word-wikipedia --help");
+		process.exit(1);
 	});
